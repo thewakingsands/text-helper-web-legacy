@@ -2,9 +2,8 @@
 <html lang="zh-Hans">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>XIV 文本检索</title>
+  <title>FFXIV 文本检索</title>
   <link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
@@ -34,6 +33,8 @@
           <td v-else class="text">{{result.cn | tToN}}</td>
           <td v-if="result.enh" class="text" v-html="result.enh"></td>
           <td v-else class="text">{{result.en | tToN}}</td>
+          <td v-if="result.jah" class="text" v-html="result.jah"></td>
+          <td v-else class="text">{{result.ja | tToN}}</td>
         </tr>
       </table>
     </div>

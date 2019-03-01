@@ -58,7 +58,7 @@ async function searchByKeyword(query, pageSize, page) {
     headers: {
       'content-type': 'application/json'
     },
-    body: `{"query":{"bool":{"must":[{"bool":{"must":[{"bool":{"should":[{"multi_match":{"query":${queryJ},"fields":["cn^3","en^3","cn.raw^3","en.raw^3","cn.search^1","en.search^1","cn.autosuggest^1","en.autosuggest^1","_id^1"],"type":"cross_fields","operator":"and"}},{"multi_match":{"query":${queryJ},"fields":["cn^3","en^3","cn.raw^3","en.raw^3","cn.search^1","en.search^1","cn.autosuggest^1","en.autosuggest^1","_id^1"],"type":"phrase_prefix","operator":"and"}}],"minimum_should_match":"1"}}]}}]}},"size":${pageSize},"_source":{"includes":["*"],"excludes":[]},"from":${pageSize * (page - 1)},"sort":[{"_score":{"order":"desc"}}],"highlight":{"fields":{"en":{},"cn":{}}}}`
+    body: `{"query":{"bool":{"must":[{"bool":{"must":[{"bool":{"should":[{"multi_match":{"query":${queryJ},"fields":["cn^3","en^3","ja^3","cn.raw^3","en.raw^3","ja.raw^3","cn.search^1","en.search^1","ja.search^1","cn.autosuggest^1","en.autosuggest^1","ja.autosuggest^1","_id^1"],"type":"cross_fields","operator":"and"}},{"multi_match":{"query":${queryJ},"fields":["cn^3","en^3","ja^3","cn.raw^3","en.raw^3","ja.raw^3","cn.search^1","en.search^1","ja.search^1","cn.autosuggest^1","en.autosuggest^1","ja.autosuggest^1","_id^1"],"type":"phrase_prefix","operator":"and"}}],"minimum_should_match":"1"}}]}}]}},"size":${pageSize},"_source":{"includes":["*"],"excludes":[]},"from":${pageSize * (page - 1)},"sort":[{"_score":{"order":"desc"}}],"highlight":{"fields":{"en":{},"cn":{},"ja":{}}}}`
   })
   const json = await resp.json()
   return {
@@ -73,6 +73,9 @@ async function searchByKeyword(query, pageSize, page) {
       }
       if (h.highlight && h.highlight.en && h.highlight.en[0]) {
         result.enh = h.highlight.en[0].replace(/\t/g, '\n')
+      }
+      if (h.highlight && h.highlight.ja && h.highlight.ja[0]) {
+        result.jah = h.highlight.ja[0].replace(/\t/g, '\n')
       }
       return result
     })
