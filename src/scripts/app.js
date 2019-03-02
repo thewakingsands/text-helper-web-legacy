@@ -58,13 +58,29 @@ const app = new Vue({
 })
 
 async function searchByKeyword(query, pageSize, page) {
-  const queryJ = JSON.stringify(query)
   const resp = await fetch(`${endpoint}/_search`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
     },
-    body: `{"query":{"bool":{"must":[{"bool":{"must":[{"bool":{"should":[{"multi_match":{"query":${queryJ},"fields":["cn^3","en^3","ja^3","cn.raw^3","en.raw^3","ja.raw^3","cn.search^1","en.search^1","ja.search^1","cn.autosuggest^1","en.autosuggest^1","ja.autosuggest^1","_id^1"],"type":"cross_fields","operator":"and"}},{"multi_match":{"query":${queryJ},"fields":["cn^3","en^3","ja^3","cn.raw^3","en.raw^3","ja.raw^3","cn.search^1","en.search^1","ja.search^1","cn.autosuggest^1","en.autosuggest^1","ja.autosuggest^1","_id^1"],"type":"phrase_prefix","operator":"and"}}],"minimum_should_match":"1"}}]}}]}},"size":${pageSize},"_source":{"includes":["*"],"excludes":[]},"from":${pageSize * (page - 1)},"sort":[{"_score":{"order":"desc"}}],"highlight":{"fields":{"en":{},"cn":{},"ja":{}}}}`
+    body: JSON.stringify({
+      query: {
+        multi_match: {
+          query,
+          fields: ["cn^3","en^2","ja^1"],
+          type: 'phrase_prefix'
+        }
+      },
+      from: pageSize * (page - 1),
+      size: pageSize,
+      highlight: {
+        fields: {
+          en: {},
+          cn: {},
+          ja: {}
+        }
+      }
+    })
   })
   const json = await resp.json()
   return {
