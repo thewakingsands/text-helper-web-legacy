@@ -25,7 +25,7 @@
         <tr v-for="result in results"
             :class="{highlight: result.index === highlightLine}">
           <td class="meta">
-            <span class="filename">{{result.filename}}</span>
+            <span class="filename">{{result.filename | cleanFilename}}</span>
             <br><span class="lineno">#{{result.index}}</span>
             <span>&nbsp;</span>
             <a href="javascript:;" @click="file(result.filename, result.index)">搜索上下文</a>

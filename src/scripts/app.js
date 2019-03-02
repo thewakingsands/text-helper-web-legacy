@@ -42,6 +42,9 @@ const app = new Vue({
   filters: {
     tToN(s) {
       return s && s.replace(/\t/g, '\n11')
+    },
+    cleanFilename(s) {
+      return s && s.replace(/\.csv$/, '')
     }
   },
   watch: {
