@@ -83,7 +83,7 @@ async function searchByKeyword(query, pageSize, page) {
 }
 
 async function searchByFilename(filename, lineno) {
-  const url = new URL(`${endpoint}/_search`)
+  const url = new URL(`${endpoint}/_search`, location.href)
   const body = {
     query: {
       bool: {
