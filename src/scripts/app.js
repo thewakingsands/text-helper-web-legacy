@@ -8,6 +8,7 @@ const app = new Vue({
     total: 0,
     pages: 0,
     highlightLine: -1,
+    highlightFilename: '',
     loading: false
   },
   methods: {
@@ -22,9 +23,11 @@ const app = new Vue({
       if (query[0] === ':') {
         const [, filename, lineno] = query.split(':')
         this.highlightLine = parseInt(lineno)
+        this.highlightFilename = filename
         searchResult = await searchByFilename(filename, lineno)
       } else {
         this.highlightLine = -1
+        this.highlightFilename = ''
         searchResult = await searchByKeyword(query, 30, 1)
       }
       if (query !== this.query) return

@@ -41,11 +41,11 @@ td {
 .meta span, .meta a {
   font-size: 12px;
 }
-.meta a {
+a {
   text-decoration: none;
   color: #03a9f4;
 }
-.meta a:hover {
+a:hover {
   color: #64b5f6;
 }
 tr:nth-child(even) {

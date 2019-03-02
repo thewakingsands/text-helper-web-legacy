@@ -26,7 +26,7 @@
     <div class="results">
       <table>
         <tr v-for="result in results"
-            :class="{highlight: result.index === highlightLine}">
+            :class="{highlight: result.index === highlightLine && result.filename === highlightFilename}">
           <td class="meta">
             <span class="filename">{{result.filename | cleanFilename}}</span>
             <br><span class="lineno">#{{result.index}}</span>
@@ -42,6 +42,10 @@
         </tr>
       </table>
     </div>
+    <div class="message" v-if="pages > 1">共 {{pages}} 页，但是懒得写翻页功能了</div>
+    <footer class="message">By
+      <a href="https://ff14.huijiwiki.com/wiki/%E7%94%A8%E6%88%B7:%E4%BA%91%E6%B3%BD%E5%AE%9B%E9%A3%8E" target="_blank">云泽宛风@萌芽池</a>
+    </footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js" integrity="sha256-7/yoZS3548fXSRXqc/xYzjsmuW3sFKzuvOCHd06Pmps=" crossorigin="anonymous"></script>
