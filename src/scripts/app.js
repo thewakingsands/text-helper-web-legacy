@@ -1,4 +1,4 @@
-const endpoint = 'http://localhost:9200/xivcsv'
+const endpoint = localStorage.endpoint || (location.hostname === 'localhost' ? 'http://localhost:9200/xivcsv' : '/xivcsv')
 
 const app = new Vue({
   el: '#app',
