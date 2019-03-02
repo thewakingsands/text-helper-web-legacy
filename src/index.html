@@ -2,6 +2,7 @@
 <html lang="zh-Hans">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>FFXIV 文本检索</title>
   <link rel="stylesheet" href="./stylesheets/app.css">
@@ -19,7 +20,9 @@
     <div class="search">
       <input type="text" placeholder="检索词" v-model="query">
     </div>
-    <div class="tips">当前数据版本: 4.40</div>
+    <div class="message">当前数据版本: 4.40 |
+      <span v-if="loading">正在搜索……</span>
+      <span v-else>共搜索到 {{total}} 条数据</span></div>
     <div class="results">
       <table>
         <tr v-for="result in results"

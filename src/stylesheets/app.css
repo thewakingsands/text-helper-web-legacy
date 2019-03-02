@@ -1,7 +1,6 @@
 [v-cloak] {
   display: none;
 }
-
 body {
   color: #333;
   line-height: 1.5;
@@ -12,6 +11,7 @@ body {
 }
 .message {
   margin-top: 8px;
+  font-size: 14px;
 }
 input {
   width: 100%;
@@ -57,7 +57,6 @@ tr:hover {
 tr.highlight {
   background: #fff59d;
 }
-
 em {
   font-style: normal;
   background: rgba(255, 204, 0, 0.5);

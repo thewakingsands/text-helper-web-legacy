@@ -7,7 +7,8 @@ const app = new Vue({
     results: [],
     total: 0,
     pages: 0,
-    highlightLine: -1
+    highlightLine: -1,
+    loading: false
   },
   methods: {
     async search() {
@@ -16,6 +17,7 @@ const app = new Vue({
         this.results = []
         return
       }
+      this.loading = true
       let searchResult
       if (query[0] === ':') {
         const [, filename, lineno] = query.split(':')
@@ -26,6 +28,7 @@ const app = new Vue({
         searchResult = await searchByKeyword(query, 30, 1)
       }
       if (query !== this.query) return
+      this.loading = false
       this.results = searchResult.results
       this.total = searchResult.total
       this.pages = searchResult.pages
@@ -71,14 +74,8 @@ async function searchByKeyword(query, pageSize, page) {
       const result =  {
         ...h._source
       }
-      if (h.highlight && h.highlight.cn && h.highlight.cn[0]) {
-        result.cnh = h.highlight.cn[0].replace(/\t/g, '\n')
-      }
-      if (h.highlight && h.highlight.en && h.highlight.en[0]) {
-        result.enh = h.highlight.en[0].replace(/\t/g, '\n')
-      }
-      if (h.highlight && h.highlight.ja && h.highlight.ja[0]) {
-        result.jah = h.highlight.ja[0].replace(/\t/g, '\n')
+      for (const lang of ['cn', 'en', 'ja']) {
+        result[`${lang}h`] = highlight(h, lang)
       }
       return result
     })
@@ -127,4 +124,14 @@ async function searchByFilename(filename, lineno) {
     pages: 1,
     results: json.hits.hits.map(h => h._source)
   }
+}
+
+function highlight(h, lang) {
+  const html = h.highlight && h.highlight[lang] && h.highlight[lang][0]
+  if (!html) {
+    return undefined
+  }
+  return html.replace(/\t/g, '\n')
+    .replace(/<(?!\/?em)([^>]+)>/, '&lt;$1&gt;')
+    .replace(/<(?!\/?em)/, '&lt;')
 }
