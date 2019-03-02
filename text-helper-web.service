@@ -1,0 +1,19 @@
+[Unit]
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/local/bin/systemd-docker --cgroups name=systemd run --rm --name %n \
+        --network=dockernet --ip=172.16.28.11 \
+        -v /srv/text-helper-web/src:/www:ro \
+        -v /srv/text-helper-web/nginx-site.conf:/etc/nginx/conf.d/default.conf:ro \
+        nginx:1.15.9
+Restart=always
+RestartSec=10s
+Type=notify
+NotifyAccess=all
+TimeoutStartSec=120
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target
