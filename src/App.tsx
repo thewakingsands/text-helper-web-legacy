@@ -4,6 +4,7 @@ import { MainContainer } from './components/MainContainer'
 import { SearchField } from './components/SearchField'
 import { Classes, NonIdealState } from '@blueprintjs/core'
 import styled from '@emotion/styled'
+import { NoResult } from './components/NoResult'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -23,7 +24,7 @@ export default function App() {
             <SearchField />
           </MarginedDiv>
           <MarginedDiv>
-            <NonIdealState icon="search" />
+            <NoResult keyword="" />
           </MarginedDiv>
           <footer>
             <p className={`${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`}>

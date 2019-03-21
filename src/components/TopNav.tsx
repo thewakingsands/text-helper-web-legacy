@@ -9,6 +9,7 @@ import {
 } from '@blueprintjs/core'
 import { copy } from '../utils/copy'
 import { FixedWidthContainer } from './FixedWidthContainer'
+import styled from '@emotion/styled-base'
 
 export function TopNav() {
   return (
@@ -16,9 +17,9 @@ export function TopNav() {
       <FixedWidthContainer>
         <Navbar.Group align={Alignment.LEFT}>
           <Navbar.Heading>XIV 文本检索</Navbar.Heading>
+        </Navbar.Group>
+        <Navbar.Group align={Alignment.RIGHT}>
           <MoreToolsButton />
-          <Navbar.Divider />
-          <div>数据版本：4.40</div>
         </Navbar.Group>
       </FixedWidthContainer>
     </Navbar>
@@ -27,8 +28,8 @@ export function TopNav() {
 
 function MoreToolsButton() {
   return (
-    <Popover content={<MoreToolsMenu />}>
-      <Button icon="more" />
+    <Popover content={<MoreToolsMenu />} defaultIsOpen autoFocus>
+      <Button icon="more" intent="primary" />
     </Popover>
   )
 }
@@ -37,11 +38,14 @@ const WIKI_USER_URL =
   'https://ff14.huijiwiki.com/wiki/%E7%94%A8%E6%88%B7:%E4%BA%91%E6%B3%BD%E5%AE%9B%E9%A3%8E'
 const WEIBO_USER_URL = 'https://weibo.com/u/6364253854'
 
+const MAP_URL = 'https://map.wakingsands.com'
+
 function MoreToolsMenu() {
   return (
     <Menu>
+      <Menu.Item disabled icon="code" text="数据版本：4.40" />
       <Menu.Divider title="其它工具" />
-      <Menu.Item text="交互地图" icon="map" />
+      <Menu.Item text="交互地图" icon="map" onClick={() => open(MAP_URL)} />
       <Menu.Divider title="关于" />
       <Menu.Item
         text="微博 @云泽宛风"
