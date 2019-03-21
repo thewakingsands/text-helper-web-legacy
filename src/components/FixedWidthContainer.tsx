@@ -1,0 +1,18 @@
+import React from 'react'
+import styled from '@emotion/styled'
+
+const MarginDiv = styled.div({
+  maxWidth: 1000,
+  margin: '0 auto',
+  padding: '0 10px'
+})
+
+export function FixedWidthContainer({
+  children,
+  className
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return <MarginDiv className={className}>{children}</MarginDiv>
+}
