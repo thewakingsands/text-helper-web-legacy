@@ -61,21 +61,16 @@ export default function App() {
   const handleContextClick = (item: ITextLine) => {
     setKeywordInput('')
     setHighlightItem(item)
-    const destPage = Math.ceil(item.index / PAGE_SIZE)
     search.setSearch({
       file: {
         filename: item.filename,
-        page: destPage,
-        pageSize: PAGE_SIZE
+        indexLower: Math.max(0, item.index - 20),
+        indexHigher: item.index + 20
       }
     })
   }
 
-  const page = get(
-    search,
-    ['query', 'keyword', 'page'],
-    get(search, ['query', 'file', 'page'], 0)
-  )
+  const page = get(search, ['query', 'keyword', 'page'], 0)
   const totalItems = get(search.result, ['total'], 0)
   const totalPages = Math.ceil(totalItems / PAGE_SIZE)
 

@@ -3,8 +3,8 @@ import { query } from './query'
 
 export interface IFileLineProps {
   filename: string
-  pageSize: number
-  page: number
+  indexLower: number
+  indexHigher: number
 }
 
 export async function linesByFile(
@@ -18,6 +18,14 @@ export async function linesByFile(
             match: {
               filename: props.filename
             }
+          },
+          {
+            range: {
+              index: {
+                gte: props.indexLower,
+                lt: props.indexHigher
+              }
+            }
           }
         ]
       }
@@ -27,8 +35,7 @@ export async function linesByFile(
         index: { order: 'asc' }
       }
     ],
-    from: props.pageSize * (props.page - 1),
-    size: props.pageSize
+    size: props.indexHigher - props.indexLower
   })
   return resp.hits
 }

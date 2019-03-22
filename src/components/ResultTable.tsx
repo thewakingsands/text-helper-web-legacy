@@ -28,8 +28,8 @@ const HighlightedTbody = styled.tbody({
   'td:nth-of-type(4)': {
     width: '30%'
   },
-  '.highlight-row': {
-    backgroundColor: `${Colors.GOLD5} !important`
+  '.highlight-row td': {
+    backgroundColor: `#fef4a8 !important`
   }
 })
 

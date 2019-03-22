@@ -42,8 +42,6 @@ export function useSearch() {
   const setPage = (page: number) => {
     if (query.keyword) {
       setQuery({ keyword: { ...query.keyword, page: page } })
-    } else if (query.file) {
-      setQuery({ file: { ...query.file, page: page } })
     }
   }
 
