@@ -12,6 +12,7 @@ import { Pager } from './components/Pager'
 import get from 'lodash/get'
 import { ITextLine } from './search/ITextLine'
 import { SearchError } from './components/SearchError'
+import { SearchBar } from './components/SearchBar'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -34,6 +35,8 @@ const StickyContainer = styled.div({
 export default function App() {
   const [keywordInput, setKeywordInput] = useState('')
   const [highlightItem, setHighlightItem] = useState<ITextLine>(null)
+  const [previousQuery, setPreviousQuery] = useState<ISearchQuery>(null)
+
   const search = useSearch()
 
   const [debouncedSetSearch] = useDebouncedCallback(
@@ -49,6 +52,7 @@ export default function App() {
 
   const handleKeywordInputUpdate = (keyword: string) => {
     setKeywordInput(keyword)
+    setPreviousQuery(null)
     const query: ISearchQuery = {
       keyword: {
         keyword,
@@ -62,6 +66,8 @@ export default function App() {
   const handleContextClick = (item: ITextLine) => {
     setKeywordInput('')
     setHighlightItem(item)
+    setPreviousQuery(search.query)
+
     search.setSearch({
       file: {
         filename: item.filename,
@@ -69,6 +75,11 @@ export default function App() {
         indexHigher: item.index + 20
       }
     })
+  }
+
+  const handleBackClick = () => {
+    search.setSearch(previousQuery)
+    setPreviousQuery(null)
   }
 
   const page = get(search, ['query', 'keyword', 'page'], 0)
@@ -88,9 +99,11 @@ export default function App() {
         <MainContainer>
           <StickyContainer>
             <MarginedDiv>
-              <SearchField
+              <SearchBar
+                previousQuery={previousQuery}
                 keyword={keywordInput}
                 onKeywordChange={handleKeywordInputUpdate}
+                onBackClicked={handleBackClick}
               />
             </MarginedDiv>
           </StickyContainer>

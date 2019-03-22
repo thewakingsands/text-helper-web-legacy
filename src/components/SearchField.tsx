@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { InputGroup } from '@blueprintjs/core'
 
-export function SearchField(props: {
+export interface ISearchFieldProps {
   keyword: string
   onKeywordChange: (keyword: string) => void
-}) {
+  className?: string
+  style?: CSSProperties
+}
+
+export function SearchField(props: ISearchFieldProps) {
   return (
     <InputGroup
+      className={props.className}
       large
       value={props.keyword}
       onChange={e => props.onKeywordChange(e.target.value)}
