@@ -1,10 +1,5 @@
 import React from 'react'
-import { NonIdealState } from '@blueprintjs/core'
-import styled from '@emotion/styled'
-
-const StyledNonIdealState = styled(NonIdealState)({
-  height: 200
-})
+import { StyledNonIdealState } from './StyledNonIdealState'
 
 export function NoResult(props: { keyword: string }) {
   return (

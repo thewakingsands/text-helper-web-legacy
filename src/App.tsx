@@ -11,6 +11,7 @@ import { Spinner } from '@blueprintjs/core'
 import { Pager } from './components/Pager'
 import get from 'lodash/get'
 import { ITextLine } from './search/ITextLine'
+import { SearchError } from './components/SearchError'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -97,6 +98,8 @@ export default function App() {
           <MarginedDiv>
             {search.isLoading ? (
               <Loading />
+            ) : search.error ? (
+              <SearchError error={search.error} />
             ) : (
               <SearchResult
                 keyword={

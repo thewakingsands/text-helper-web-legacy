@@ -19,18 +19,25 @@ export function useSearch() {
 
     const fetchData = async () => {
       try {
+        setError(null)
         setIsLoading(true)
-        if (query.keyword) {
-          setResult(await linesByKeyword(query.keyword, abort.signal))
-        } else if (query.file) {
-          setResult(await linesByFile(query.file, abort.signal))
-        } else {
-          setResult(null)
+        if (query) {
+          if (query.keyword) {
+            setResult(await linesByKeyword(query.keyword, abort.signal))
+          } else if (query.file) {
+            setResult(await linesByFile(query.file, abort.signal))
+          } else {
+            setResult(null)
+          }
         }
       } catch (e) {
-        setError(e)
+        if (e && e.name !== 'AbortError') {
+          setError(e)
+        }
       } finally {
-        setIsLoading(false)
+        if (!abort.signal.aborted) {
+          setIsLoading(false)
+        }
       }
     }
 
