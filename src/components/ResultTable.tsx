@@ -1,6 +1,6 @@
 import React from 'react'
 import { ISearchResult, ITextLine } from '../search/ITextLine'
-import { HTMLTable, Colors } from '@blueprintjs/core'
+import { HTMLTable, Colors, Classes } from '@blueprintjs/core'
 import styled from '@emotion/styled'
 
 const HighlightedTbody = styled.tbody({
@@ -8,7 +8,38 @@ const HighlightedTbody = styled.tbody({
     textDecoration: 'none',
     backgroundColor: Colors.GOLD5,
     fontStyle: 'normal'
+  },
+  td: {
+    whiteSpace: 'pre-wrap',
+    wordBreak: 'break-word',
+    cursor: 'auto'
+  },
+  'td:nth-of-type(1)': {
+    width: '10%',
+    fontSize: 12,
+    fontFamily: 'monospace'
+  },
+  'td:nth-of-type(2)': {
+    width: '30%'
+  },
+  'td:nth-of-type(3)': {
+    width: '30%'
+  },
+  'td:nth-of-type(4)': {
+    width: '30%'
   }
+})
+
+const StyledHtmlTable = styled(HTMLTable)({
+  minWidth: 700,
+  [`&.${Classes.HTML_TABLE}.${Classes.HTML_TABLE_STRIPED} tbody tr:hover td`]: {
+    backgroundColor: Colors.LIGHT_GRAY4
+  }
+})
+
+const ScollableContainer = styled.div({
+  width: '100%',
+  overflowX: 'auto'
 })
 
 export function ResultTable(props: { result: ISearchResult<ITextLine> }) {
@@ -19,7 +50,7 @@ export function ResultTable(props: { result: ISearchResult<ITextLine> }) {
         _id: item._id,
         index:
           item._source.filename.replace(/\.csv$/, '') +
-          '#' +
+          '\n#' +
           item._source.index,
         html: [
           ['cn', highlight(item, 'cn')],
@@ -30,26 +61,28 @@ export function ResultTable(props: { result: ISearchResult<ITextLine> }) {
     })
 
   return (
-    <HTMLTable condensed striped interactive>
-      <thead>
-        <tr>
-          <th>位置</th>
-          <th>中文</th>
-          <th>英语</th>
-          <th>日语</th>
-        </tr>
-      </thead>
-      <HighlightedTbody>
-        {items.map(item => (
-          <tr key={item._id}>
-            <td>{item.index}</td>
-            {item.html.map(i => (
-              <td key={i[0]} dangerouslySetInnerHTML={{ __html: i[1] }} />
-            ))}
+    <ScollableContainer>
+      <StyledHtmlTable condensed striped>
+        <thead>
+          <tr>
+            <th>位置</th>
+            <th>中文</th>
+            <th>英语</th>
+            <th>日语</th>
           </tr>
-        ))}
-      </HighlightedTbody>
-    </HTMLTable>
+        </thead>
+        <HighlightedTbody>
+          {items.map(item => (
+            <tr key={item._id}>
+              <td>{item.index}</td>
+              {item.html.map(i => (
+                <td key={i[0]} dangerouslySetInnerHTML={{ __html: i[1] }} />
+              ))}
+            </tr>
+          ))}
+        </HighlightedTbody>
+      </StyledHtmlTable>
+    </ScollableContainer>
   )
 }
 

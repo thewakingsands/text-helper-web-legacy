@@ -7,6 +7,7 @@ import { Footer } from './components/Footer'
 import { useSearch, ISearchQuery } from './search/useSearch'
 import { SearchResult } from './components/SearchResult'
 import { useDebouncedCallback } from 'use-debounce'
+import { Spinner } from '@blueprintjs/core'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -16,13 +17,17 @@ const FillBodySection = styled.section({
   minHeight: '100%'
 })
 
+const Loading = styled(Spinner)({
+  minHeight: 200
+})
+
 export default function App() {
   const [keywordInput, setKeywordInput] = useState('')
   const search = useSearch()
 
   const [debouncedSetSearch] = useDebouncedCallback(
     (q: ISearchQuery) => search.setSearch(q),
-    600,
+    400,
     []
   )
 
@@ -50,14 +55,18 @@ export default function App() {
             />
           </MarginedDiv>
           <MarginedDiv>
-            <SearchResult
-              keyword={
-                search.query &&
-                search.query.keyword &&
-                search.query.keyword.keyword
-              }
-              result={search.result}
-            />
+            {search.isLoading ? (
+              <Loading />
+            ) : (
+              <SearchResult
+                keyword={
+                  search.query &&
+                  search.query.keyword &&
+                  search.query.keyword.keyword
+                }
+                result={search.result}
+              />
+            )}
           </MarginedDiv>
           <Footer />
         </MainContainer>
