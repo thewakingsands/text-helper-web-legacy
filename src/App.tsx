@@ -2,7 +2,7 @@ import React from 'react'
 import { TopNav } from './components/TopNav'
 import { MainContainer } from './components/MainContainer'
 import { SearchField } from './components/SearchField'
-import { Classes, NonIdealState } from '@blueprintjs/core'
+import { Classes } from '@blueprintjs/core'
 import styled from '@emotion/styled'
 import { NoResult } from './components/NoResult'
 

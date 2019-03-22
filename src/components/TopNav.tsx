@@ -9,7 +9,6 @@ import {
 } from '@blueprintjs/core'
 import { copy } from '../utils/copy'
 import { FixedWidthContainer } from './FixedWidthContainer'
-import styled from '@emotion/styled-base'
 
 export function TopNav() {
   return (
@@ -28,7 +27,7 @@ export function TopNav() {
 
 function MoreToolsButton() {
   return (
-    <Popover content={<MoreToolsMenu />} defaultIsOpen autoFocus>
+    <Popover content={<MoreToolsMenu />} defaultIsOpen>
       <Button icon="more" intent="primary" />
     </Popover>
   )
