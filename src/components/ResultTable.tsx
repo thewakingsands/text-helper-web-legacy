@@ -32,6 +32,7 @@ const HighlightedTbody = styled.tbody({
 
 const StyledHtmlTable = styled(HTMLTable)({
   minWidth: 700,
+  width: '100%',
   [`&.${Classes.HTML_TABLE}.${Classes.HTML_TABLE_STRIPED} tbody tr:hover td`]: {
     backgroundColor: Colors.LIGHT_GRAY4
   }
@@ -77,7 +78,7 @@ export function ResultTable(props: IResultTableProps) {
             <th>日语</th>
           </tr>
         </thead>
-        <HighlightedTbody>
+        <HighlightedTbody className={Classes.TEXT_LARGE}>
           {items.map(item => (
             <tr key={item._id}>
               <td>
