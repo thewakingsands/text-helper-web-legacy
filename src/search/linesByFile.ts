@@ -22,7 +22,7 @@ export async function linesByFile(
           {
             range: {
               index: {
-                gte: props.indexLower - 1,
+                gte: props.indexLower,
                 lt: props.indexHigher + 1
               }
             }
