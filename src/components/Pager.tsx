@@ -3,8 +3,7 @@ import { ButtonGroup, Button } from '@blueprintjs/core'
 import styled from '@emotion/styled'
 
 const PagerContainer = styled.div({
-  textAlign: 'center',
-  fontFamily: 'monospace'
+  textAlign: 'center'
 })
 
 export interface IPagerProps {
