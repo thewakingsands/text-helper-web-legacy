@@ -3,7 +3,7 @@ import { NonIdealState } from '@blueprintjs/core'
 import styled from '@emotion/styled'
 
 const StyledNonIdealState = styled(NonIdealState)({
-  paddingBottom: 20
+  height: 200
 })
 
 export function NoResult(props: { keyword: string }) {
