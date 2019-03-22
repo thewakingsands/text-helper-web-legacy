@@ -8,34 +8,38 @@ export interface IFileLineProps {
 }
 
 export async function linesByFile(
-  props: IFileLineProps
+  props: IFileLineProps,
+  signal?: AbortSignal
 ): Promise<ISearchResult<ITextLine>> {
-  const resp = await query({
-    query: {
-      bool: {
-        must: [
-          {
-            match: {
-              filename: props.filename
-            }
-          },
-          {
-            range: {
-              index: {
-                gte: props.indexLower,
-                lt: props.indexHigher + 1
+  const resp = await query(
+    {
+      query: {
+        bool: {
+          must: [
+            {
+              match: {
+                filename: props.filename
+              }
+            },
+            {
+              range: {
+                index: {
+                  gte: props.indexLower,
+                  lt: props.indexHigher + 1
+                }
               }
             }
-          }
-        ]
-      }
+          ]
+        }
+      },
+      sort: [
+        {
+          index: { order: 'asc' }
+        }
+      ],
+      size: props.indexHigher - props.indexLower + 1
     },
-    sort: [
-      {
-        index: { order: 'asc' }
-      }
-    ],
-    size: props.indexHigher - props.indexLower + 1
-  })
+    signal
+  )
   return resp.hits
 }

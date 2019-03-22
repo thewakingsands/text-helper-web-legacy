@@ -15,13 +15,15 @@ export function useSearch() {
   const [query, setQuery] = useState<ISearchQuery>(null)
 
   useEffect(() => {
+    const abort = new AbortController()
+
     const fetchData = async () => {
       try {
         setIsLoading(true)
         if (query.keyword) {
-          setResult(await linesByKeyword(query.keyword))
+          setResult(await linesByKeyword(query.keyword, abort.signal))
         } else if (query.file) {
-          setResult(await linesByFile(query.file))
+          setResult(await linesByFile(query.file, abort.signal))
         } else {
           setResult(null)
         }
@@ -33,6 +35,8 @@ export function useSearch() {
     }
 
     fetchData()
+
+    return () => abort.abort()
   }, [query])
 
   const setSearch = (query: ISearchQuery) => {

@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import 'abortcontroller-polyfill'
 
 import React from 'react'
 import ReactDOM from 'react-dom'

@@ -12,6 +12,7 @@
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.2",
     "@typescript-eslint/eslint-plugin": "^1.3.0",
+    "abortcontroller-polyfill": "^1.2.9",
     "copy-text-to-clipboard": "^2.0.0",
     "ky": "^0.9.0",
     "lodash": "^4.17.11",
