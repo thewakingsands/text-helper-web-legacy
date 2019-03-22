@@ -59,24 +59,10 @@ function renderPageButton(page: number, props: IPagerProps) {
     )
   }
   if (page === props.current - 1) {
-    return (
-      <Button
-        key={page}
-        text={page}
-        icon="chevron-left"
-        onClick={handleClick}
-      />
-    )
+    return <Button key={page} icon="chevron-left" onClick={handleClick} />
   }
   if (page === props.current + 1) {
-    return (
-      <Button
-        key={page}
-        text={page}
-        rightIcon="chevron-right"
-        onClick={handleClick}
-      />
-    )
+    return <Button key={page} rightIcon="chevron-right" onClick={handleClick} />
   }
   if (page === 1) {
     return (
