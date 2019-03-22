@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TopNav } from './components/TopNav'
 import { MainContainer } from './components/MainContainer'
 import { SearchField } from './components/SearchField'
-import { Classes } from '@blueprintjs/core'
 import styled from '@emotion/styled'
-import { NoResult } from './components/NoResult'
+import { Footer } from './components/Footer'
+import { useSearch, ISearchQuery } from './search/useSearch'
+import debounce from 'lodash/debounce'
+import { SearchResult } from './components/SearchResult'
+import { useDebouncedCallback } from 'use-debounce'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -15,26 +18,49 @@ const FillBodySection = styled.section({
 })
 
 export default function App() {
+  const [keywordInput, setKeywordInput] = useState('')
+  const search = useSearch()
+
+  const [debouncedSetSearch] = useDebouncedCallback(
+    (q: ISearchQuery) => search.setSearch(q),
+    600,
+    []
+  )
+
+  const handleKeywordInputUpdate = (keyword: string) => {
+    setKeywordInput(keyword)
+    const query: ISearchQuery = {
+      keyword: {
+        keyword,
+        page: 1,
+        pageSize: 20
+      }
+    }
+    debouncedSetSearch(query)
+  }
+
   return (
     <>
       <TopNav />
       <FillBodySection>
         <MainContainer>
           <MarginedDiv>
-            <SearchField />
+            <SearchField
+              keyword={keywordInput}
+              onKeywordChange={handleKeywordInputUpdate}
+            />
           </MarginedDiv>
           <MarginedDiv>
-            <NoResult keyword="" />
+            <SearchResult
+              keyword={
+                search.query &&
+                search.query.keyword &&
+                search.query.keyword.keyword
+              }
+              result={search.result}
+            />
           </MarginedDiv>
-          <footer>
-            <p className={`${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`}>
-              FINAL FANTASY is a registered trademark of Square Enix Holdings
-              Co., Ltd.
-              <br />
-              Copyrighted Materials are extracted from FINAL FANTASY XIV © 2010
-              - 2019 SQUARE ENIX CO., LTD. All Rights Reserved.
-            </p>
-          </footer>
+          <Footer />
         </MainContainer>
       </FillBodySection>
     </>
