@@ -74,6 +74,12 @@ export default function App() {
   const totalItems = get(search.result, ['total'], 0)
   const totalPages = Math.ceil(totalItems / PAGE_SIZE)
 
+  const pager = !search.isLoading && page > 0 && totalPages > 0 && (
+    <MarginedDiv>
+      <Pager current={page} total={totalPages} onPageChange={search.setPage} />
+    </MarginedDiv>
+  )
+
   return (
     <>
       <TopNav />
@@ -87,6 +93,7 @@ export default function App() {
               />
             </MarginedDiv>
           </StickyContainer>
+          {pager}
           <MarginedDiv>
             {search.isLoading ? (
               <Loading />
@@ -103,15 +110,7 @@ export default function App() {
               />
             )}
           </MarginedDiv>
-          {!search.isLoading && page > 0 && totalPages > 0 && (
-            <MarginedDiv>
-              <Pager
-                current={page}
-                total={totalPages}
-                onPageChange={search.setPage}
-              />
-            </MarginedDiv>
-          )}
+          {pager}
           <Footer />
         </MainContainer>
       </FillBodySection>
