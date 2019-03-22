@@ -3,7 +3,7 @@ import { Classes } from '@blueprintjs/core'
 
 export function Footer() {
   return (
-    <footer>
+    <footer style={{ paddingTop: 12 }}>
       <p className={`${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`}>
         FINAL FANTASY is a registered trademark of Square Enix Holdings Co.,
         Ltd.

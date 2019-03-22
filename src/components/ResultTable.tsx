@@ -45,7 +45,7 @@ const ScollableContainer = styled.div({
 
 export interface IResultTableProps {
   result: ISearchResult<ITextLine>
-  onContextButtonClick?: (item: ITextLine) => void
+  onContextButtonClick: (item: ITextLine) => void
 }
 
 export function ResultTable(props: IResultTableProps) {

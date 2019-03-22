@@ -8,6 +8,8 @@ import { useSearch, ISearchQuery } from './search/useSearch'
 import { SearchResult } from './components/SearchResult'
 import { useDebouncedCallback } from 'use-debounce'
 import { Spinner } from '@blueprintjs/core'
+import { Pager } from './components/Pager'
+import get from 'lodash/get'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -37,17 +39,23 @@ export default function App() {
     []
   )
 
+  const PAGE_SIZE = 20
+
   const handleKeywordInputUpdate = (keyword: string) => {
     setKeywordInput(keyword)
     const query: ISearchQuery = {
       keyword: {
         keyword,
         page: 1,
-        pageSize: 20
+        pageSize: PAGE_SIZE
       }
     }
     debouncedSetSearch(query)
   }
+
+  const page = get(search, ['query', 'keyword', 'page'], 0)
+  const totalItems = get(search.result, ['total'], 0)
+  const totalPages = Math.ceil(totalItems / PAGE_SIZE)
 
   return (
     <>
@@ -73,9 +81,19 @@ export default function App() {
                   search.query.keyword.keyword
                 }
                 result={search.result}
+                onContextButtonClick={console.log}
               />
             )}
           </MarginedDiv>
+          {!search.isLoading && totalPages > 0 && (
+            <MarginedDiv>
+              <Pager
+                current={page}
+                total={totalPages}
+                onPageChange={search.setPage}
+              />
+            </MarginedDiv>
+          )}
           <Footer />
         </MainContainer>
       </FillBodySection>

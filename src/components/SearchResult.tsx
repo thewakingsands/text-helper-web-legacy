@@ -6,6 +6,7 @@ import { ResultTable } from './ResultTable'
 export interface ISearchResultProps {
   keyword: string
   result: ISearchResult<ITextLine>
+  onContextButtonClick: (item: ITextLine) => void
 }
 
 export function SearchResult(props: ISearchResultProps) {
@@ -13,6 +14,11 @@ export function SearchResult(props: ISearchResultProps) {
   if (resultCount < 1) {
     return <NoResult keyword={props.keyword} />
   } else {
-    return <ResultTable result={props.result} />
+    return (
+      <ResultTable
+        onContextButtonClick={props.onContextButtonClick}
+        result={props.result}
+      />
+    )
   }
 }

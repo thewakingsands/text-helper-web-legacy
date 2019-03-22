@@ -10,7 +10,7 @@ export function useSearch() {
   const [result, setResult] = useState<ISearchResult<ITextLine>>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error>(null)
-  const [query, setQuery] = useState(null)
+  const [query, setQuery] = useState<ISearchQuery>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,5 +35,11 @@ export function useSearch() {
     setQuery(query)
   }
 
-  return { result, query, isLoading, error, setSearch }
+  const setPage = (page: number) => {
+    if (query.keyword) {
+      setQuery({ keyword: { ...query.keyword, page: page } })
+    }
+  }
+
+  return { result, query, isLoading, error, setSearch, setPage }
 }
