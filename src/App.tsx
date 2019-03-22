@@ -103,7 +103,7 @@ export default function App() {
               />
             )}
           </MarginedDiv>
-          {!search.isLoading && totalPages > 0 && (
+          {!search.isLoading && page > 0 && totalPages > 0 && (
             <MarginedDiv>
               <Pager
                 current={page}
