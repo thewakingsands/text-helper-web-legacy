@@ -66,7 +66,11 @@ export default function App() {
     })
   }
 
-  const page = get(search, ['query', 'keyword', 'page'], 0)
+  const page = get(
+    search,
+    ['query', 'keyword', 'page'],
+    get(search, ['query', 'file', 'page'], 0)
+  )
   const totalItems = get(search.result, ['total'], 0)
   const totalPages = Math.ceil(totalItems / PAGE_SIZE)
 
