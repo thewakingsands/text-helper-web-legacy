@@ -22,8 +22,8 @@ export async function linesByFile(
           {
             range: {
               index: {
-                gte: props.indexLower,
-                lt: props.indexHigher
+                gte: props.indexLower - 1,
+                lt: props.indexHigher + 1
               }
             }
           }
@@ -35,7 +35,7 @@ export async function linesByFile(
         index: { order: 'asc' }
       }
     ],
-    size: props.indexHigher - props.indexLower
+    size: props.indexHigher - props.indexLower + 1
   })
   return resp.hits
 }
