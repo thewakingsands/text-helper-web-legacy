@@ -32,10 +32,14 @@ const StickyContainer = styled.div({
 
 export default function App() {
   const [keywordInput, setKeywordInput] = useState('')
+  const [highlightItem, setHighlightItem] = useState<ITextLine>(null)
   const search = useSearch()
 
   const [debouncedSetSearch] = useDebouncedCallback(
-    (q: ISearchQuery) => search.setSearch(q),
+    (q: ISearchQuery) => {
+      setHighlightItem(null)
+      search.setSearch(q)
+    },
     400,
     []
   )
@@ -56,6 +60,7 @@ export default function App() {
 
   const handleContextClick = (item: ITextLine) => {
     setKeywordInput('')
+    setHighlightItem(item)
     const destPage = Math.ceil(item.index / PAGE_SIZE)
     search.setSearch({
       file: {
@@ -99,6 +104,7 @@ export default function App() {
                 }
                 result={search.result}
                 onContextButtonClick={handleContextClick}
+                highlightItem={highlightItem}
               />
             )}
           </MarginedDiv>

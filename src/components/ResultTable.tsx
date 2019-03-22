@@ -27,6 +27,9 @@ const HighlightedTbody = styled.tbody({
   },
   'td:nth-of-type(4)': {
     width: '30%'
+  },
+  '.highlight-row': {
+    backgroundColor: `${Colors.GOLD5} !important`
   }
 })
 
@@ -50,14 +53,20 @@ const ScollableContainer = styled.div({
 export interface IResultTableProps {
   result: ISearchResult<ITextLine>
   onContextButtonClick: (item: ITextLine) => void
+  highlightItem?: ITextLine
 }
 
 export function ResultTable(props: IResultTableProps) {
+  const hli = props.highlightItem
   const items =
     props.result &&
     props.result.hits.map(item => {
       return {
         _id: item._id,
+        highlight:
+          hli &&
+          hli.index === item._source.index &&
+          hli.filename === item._source.filename,
         index:
           item._source.filename.replace(/\.csv$/, '') +
           '\n#' +
@@ -84,7 +93,10 @@ export function ResultTable(props: IResultTableProps) {
         </thead>
         <HighlightedTbody className={Classes.TEXT_LARGE}>
           {items.map(item => (
-            <tr key={item._id}>
+            <tr
+              key={item._id}
+              className={item.highlight ? 'highlight-row' : ''}
+            >
               <td>
                 {item.index}
                 <br />

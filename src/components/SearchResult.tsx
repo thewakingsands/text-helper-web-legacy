@@ -6,6 +6,7 @@ import { ResultTable } from './ResultTable'
 export interface ISearchResultProps {
   keyword: string
   result: ISearchResult<ITextLine>
+  highlightItem?: ITextLine
   onContextButtonClick: (item: ITextLine) => void
 }
 
@@ -17,6 +18,7 @@ export function SearchResult(props: ISearchResultProps) {
     return (
       <ResultTable
         onContextButtonClick={props.onContextButtonClick}
+        highlightItem={props.highlightItem}
         result={props.result}
       />
     )
