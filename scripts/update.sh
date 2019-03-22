@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 echo "Installing packages ..."
-docker run -it --rm -v `pwd`:/app -v yarncache:/root/.yarn-cache -w /app node:lts yarn
+docker run -it --rm -v `pwd`:/app -v yarncache:/yarncache -w /app node:lts yarn --cache-folder /yarncache
 echo "Buliding ..."
 docker run -it --rm -v `pwd`:/app -w /app node:lts yarn build
 echo "Updating directory ..."
