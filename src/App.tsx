@@ -5,7 +5,6 @@ import { SearchField } from './components/SearchField'
 import styled from '@emotion/styled'
 import { Footer } from './components/Footer'
 import { useSearch, ISearchQuery } from './search/useSearch'
-import debounce from 'lodash/debounce'
 import { SearchResult } from './components/SearchResult'
 import { useDebouncedCallback } from 'use-debounce'
 
