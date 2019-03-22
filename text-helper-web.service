@@ -5,7 +5,7 @@ Requires=docker.service
 [Service]
 ExecStart=/usr/local/bin/systemd-docker --cgroups name=systemd run --rm --name %n \
         --network=dockernet --ip=172.16.28.11 \
-        -v /srv/text-helper-web/build:/www:ro \
+        -v /srv/text-helper-web/dist:/www:ro \
         -v /srv/text-helper-web/nginx-site.conf:/etc/nginx/conf.d/default.conf:ro \
         nginx:1.15.9
 Restart=always

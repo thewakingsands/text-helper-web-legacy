@@ -1,21 +1,4 @@
-# text-helper-web
-
-## Build
-
-```bash
+#!/bin/bash
 docker run -it --rm -v `pwd`:/app -w /app node:lts yarn
 docker run -it --rm -v `pwd`:/app -w /app node:lts yarn build
-```
-
-## Update
-
-```bash
-mkdir -p dist
 docker run -it --rm -v `pwd`:/app --entrypoint=/usr/bin/rsync eeacms/rsync -a --delete /app/build/ /app/dist/
-```
-
-## Run
-
-```bash
-systemctl enable --now `pwd`/text-helper-web.service
-```
