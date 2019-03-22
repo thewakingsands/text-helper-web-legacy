@@ -2,6 +2,7 @@ import React from 'react'
 import { ISearchResult, ITextLine } from '../search/ITextLine'
 import { HTMLTable, Colors, Classes, Button } from '@blueprintjs/core'
 import styled from '@emotion/styled'
+import { useScrollIntoView } from '../utils/useScrollIntoView'
 
 const HighlightedTbody = styled.tbody({
   em: {
@@ -57,6 +58,8 @@ export interface IResultTableProps {
 }
 
 export function ResultTable(props: IResultTableProps) {
+  useScrollIntoView('.highlight-row', [props.highlightItem])
+
   const hli = props.highlightItem
   const items =
     props.result &&
