@@ -35,6 +35,10 @@ const StyledHtmlTable = styled(HTMLTable)({
   width: '100%',
   [`&.${Classes.HTML_TABLE}.${Classes.HTML_TABLE_STRIPED} tbody tr:hover td`]: {
     backgroundColor: Colors.LIGHT_GRAY4
+  },
+  borderCollapse: 'collapse',
+  'th, tr, td': {
+    border: '1px solid #fff'
   }
 })
 
@@ -85,7 +89,7 @@ export function ResultTable(props: IResultTableProps) {
                 {item.index}
                 <br />
                 <a onClick={() => props.onContextButtonClick(item._source)}>
-                  查看上下文
+                  搜索上下文
                 </a>
               </td>
               {item.html.map(i => (

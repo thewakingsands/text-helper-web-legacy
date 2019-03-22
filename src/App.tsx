@@ -10,6 +10,7 @@ import { useDebouncedCallback } from 'use-debounce'
 import { Spinner } from '@blueprintjs/core'
 import { Pager } from './components/Pager'
 import get from 'lodash/get'
+import { ITextLine } from './search/ITextLine'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -53,6 +54,18 @@ export default function App() {
     debouncedSetSearch(query)
   }
 
+  const handleContextClick = (item: ITextLine) => {
+    setKeywordInput('')
+    const destPage = Math.ceil(item.index / PAGE_SIZE)
+    search.setSearch({
+      file: {
+        filename: item.filename,
+        page: destPage,
+        pageSize: PAGE_SIZE
+      }
+    })
+  }
+
   const page = get(search, ['query', 'keyword', 'page'], 0)
   const totalItems = get(search.result, ['total'], 0)
   const totalPages = Math.ceil(totalItems / PAGE_SIZE)
@@ -81,7 +94,7 @@ export default function App() {
                   search.query.keyword.keyword
                 }
                 result={search.result}
-                onContextButtonClick={console.log}
+                onContextButtonClick={handleContextClick}
               />
             )}
           </MarginedDiv>

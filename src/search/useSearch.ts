@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { ISearchResult, ITextLine } from './ITextLine'
 import { IKeywordProps, linesByKeyword } from './linesByKeyword'
+import { IFileLineProps, linesByFile } from './linesByFile'
 
 export interface ISearchQuery {
   keyword?: IKeywordProps
+  file?: IFileLineProps
 }
 
 export function useSearch() {
@@ -18,6 +20,8 @@ export function useSearch() {
         setIsLoading(true)
         if (query.keyword) {
           setResult(await linesByKeyword(query.keyword))
+        } else if (query.file) {
+          setResult(await linesByFile(query.file))
         } else {
           setResult(null)
         }
