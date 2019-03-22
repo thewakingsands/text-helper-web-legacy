@@ -21,6 +21,12 @@ const Loading = styled(Spinner)({
   minHeight: 200
 })
 
+const StickyContainer = styled.div({
+  position: 'sticky',
+  top: 5,
+  zIndex: 20
+})
+
 export default function App() {
   const [keywordInput, setKeywordInput] = useState('')
   const search = useSearch()
@@ -48,12 +54,14 @@ export default function App() {
       <TopNav />
       <FillBodySection>
         <MainContainer>
-          <MarginedDiv>
-            <SearchField
-              keyword={keywordInput}
-              onKeywordChange={handleKeywordInputUpdate}
-            />
-          </MarginedDiv>
+          <StickyContainer>
+            <MarginedDiv>
+              <SearchField
+                keyword={keywordInput}
+                onKeywordChange={handleKeywordInputUpdate}
+              />
+            </MarginedDiv>
+          </StickyContainer>
           <MarginedDiv>
             {search.isLoading ? (
               <Loading />

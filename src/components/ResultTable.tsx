@@ -1,6 +1,6 @@
 import React from 'react'
 import { ISearchResult, ITextLine } from '../search/ITextLine'
-import { HTMLTable, Colors, Classes } from '@blueprintjs/core'
+import { HTMLTable, Colors, Classes, Button } from '@blueprintjs/core'
 import styled from '@emotion/styled'
 
 const HighlightedTbody = styled.tbody({
@@ -42,7 +42,12 @@ const ScollableContainer = styled.div({
   overflowX: 'auto'
 })
 
-export function ResultTable(props: { result: ISearchResult<ITextLine> }) {
+export interface IResultTableProps {
+  result: ISearchResult<ITextLine>
+  onContextButtonClick?: (item: ITextLine) => void
+}
+
+export function ResultTable(props: IResultTableProps) {
   const items =
     props.result &&
     props.result.hits.map(item => {
@@ -56,7 +61,8 @@ export function ResultTable(props: { result: ISearchResult<ITextLine> }) {
           ['cn', highlight(item, 'cn')],
           ['en', highlight(item, 'en')],
           ['ja', highlight(item, 'ja')]
-        ]
+        ],
+        _source: item._source
       }
     })
 
@@ -74,7 +80,13 @@ export function ResultTable(props: { result: ISearchResult<ITextLine> }) {
         <HighlightedTbody>
           {items.map(item => (
             <tr key={item._id}>
-              <td>{item.index}</td>
+              <td>
+                {item.index}
+                <br />
+                <a onClick={() => props.onContextButtonClick(item._source)}>
+                  查看上下文
+                </a>
+              </td>
               {item.html.map(i => (
                 <td key={i[0]} dangerouslySetInnerHTML={{ __html: i[1] }} />
               ))}
