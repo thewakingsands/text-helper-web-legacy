@@ -9,6 +9,9 @@ import {
 } from '@blueprintjs/core'
 import { copy } from '../utils/copy'
 import { FixedWidthContainer } from './FixedWidthContainer'
+import useLocalStorage from 'react-use-localstorage'
+
+const NEVERSHOW_KEY = 'neverShow'
 
 export function TopNav() {
   return (
@@ -26,8 +29,10 @@ export function TopNav() {
 }
 
 function MoreToolsButton() {
+  const [neverShow] = useLocalStorage(NEVERSHOW_KEY, '')
+
   return (
-    <Popover content={<MoreToolsMenu />} defaultIsOpen>
+    <Popover content={<MoreToolsMenu />} defaultIsOpen={!neverShow}>
       <Button icon="more" intent="primary" />
     </Popover>
   )
@@ -40,8 +45,15 @@ const WEIBO_USER_URL = 'https://weibo.com/u/6364253854'
 const MAP_URL = 'https://map.wakingsands.com'
 
 function MoreToolsMenu() {
+  const [neverShow, setNeverShow] = useLocalStorage(NEVERSHOW_KEY, '')
+
   return (
     <Menu>
+      <Menu.Item
+        icon={neverShow ? 'tick' : 'square'}
+        onClick={() => setNeverShow(neverShow ? '' : 'yes')}
+        text="自动隐藏本菜单"
+      />
       <Menu.Item disabled icon="code" text="数据版本：4.40" />
       <Menu.Divider title="其它工具" />
       <Menu.Item text="交互地图" icon="map" onClick={() => open(MAP_URL)} />
