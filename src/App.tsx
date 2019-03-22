@@ -80,6 +80,7 @@ export default function App() {
   const handleBackClick = () => {
     search.setSearch(previousQuery)
     setPreviousQuery(null)
+    setKeywordInput(get(previousQuery, 'keyword.keyword'))
   }
 
   const page = get(search, ['query', 'keyword', 'page'], 0)

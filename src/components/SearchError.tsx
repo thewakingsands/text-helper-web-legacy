@@ -10,5 +10,5 @@ const ErrorNonIdealState = styled(StyledNonIdealState)({
 })
 
 export function SearchError(props: { error: Error }) {
-  return <ErrorNonIdealState icon="error" description={props.error.stack} />
+  return <ErrorNonIdealState icon="error" description={props.error.message} />
 }

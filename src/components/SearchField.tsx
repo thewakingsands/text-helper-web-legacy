@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { InputGroup } from '@blueprintjs/core'
+import { InputGroup, Button } from '@blueprintjs/core'
 
 export interface ISearchFieldProps {
   keyword: string
@@ -18,6 +18,15 @@ export function SearchField(props: ISearchFieldProps) {
       leftIcon="search"
       placeholder="中/英/日文搜索"
       autoFocus
+      rightElement={
+        props.keyword && (
+          <Button
+            icon="small-cross"
+            minimal
+            onClick={() => props.onKeywordChange('')}
+          />
+        )
+      }
     />
   )
 }

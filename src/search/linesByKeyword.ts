@@ -11,6 +11,9 @@ export async function linesByKeyword(
   { keyword, pageSize, page }: IKeywordProps,
   signal?: AbortSignal
 ): Promise<ISearchResult<ITextLine>> {
+  if (!keyword) {
+    return null
+  }
   const resp = await query(
     {
       query: {
