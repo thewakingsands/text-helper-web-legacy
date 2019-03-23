@@ -97,6 +97,15 @@ function parseSpecialInput(input: string) {
       ]
     }
   }
+  if (input.startsWith('en:')) {
+    return { should: [matchQuey(input.substr(3), 'en')] }
+  }
+  if (input.startsWith('cn:')) {
+    return { should: [matchQuey(input.substr(3), 'cn')] }
+  }
+  if (input.startsWith('ja:')) {
+    return { should: [matchQuey(input.substr(3), 'ja')] }
+  }
   if (input.startsWith('"') && input.endsWith('"')) {
     const keyword = input.substr(1, input.length - 2)
     return {
@@ -130,6 +139,14 @@ function ignoredFileuery() {
   return {
     match: {
       filename: 'Completion.csv'
+    }
+  }
+}
+
+function matchQuey(keyword: string, field: string) {
+  return {
+    match: {
+      [field]: keyword
     }
   }
 }
