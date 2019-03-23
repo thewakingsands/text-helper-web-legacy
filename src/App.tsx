@@ -37,7 +37,14 @@ export default function App() {
   const [highlightItem, setHighlightItem] = useState<ITextLine>(null)
   const [previousQuery, setPreviousQuery] = useState<ISearchQuery>(null)
 
-  const search = useSearch()
+  // const search = useSearch({
+  //   keyword: {
+  //     keyword: '阿尔菲诺 塔塔露',
+  //     page: 1,
+  //     pageSize: 20
+  //   }
+  // })
+  const search = useSearch(null)
 
   const [debouncedSetSearch] = useDebouncedCallback(
     (q: ISearchQuery) => {

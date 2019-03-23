@@ -8,11 +8,11 @@ export interface ISearchQuery {
   file?: IFileLineProps
 }
 
-export function useSearch() {
+export function useSearch(initialQuery: ISearchQuery) {
   const [result, setResult] = useState<ISearchResult<ITextLine>>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error>(null)
-  const [query, setQuery] = useState<ISearchQuery>(null)
+  const [query, setQuery] = useState<ISearchQuery>(initialQuery)
 
   useEffect(() => {
     const abort = new AbortController()
