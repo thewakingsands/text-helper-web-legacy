@@ -17,11 +17,27 @@ export async function linesByKeyword(
   const resp = await query(
     {
       query: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        multi_match: {
-          query: keyword,
-          fields: ['cn^3', 'en^2', 'ja^1'],
-          type: 'phrase_prefix'
+        bool: {
+          must: [
+            {
+              // eslint-disable-next-line @typescript-eslint/camelcase
+              multi_match: {
+                query: keyword,
+                fields: ['cn^3', 'en^2', 'ja^1'],
+                type: 'phrase_prefix'
+              }
+            },
+            {
+              bool: {
+                // eslint-disable-next-line @typescript-eslint/camelcase
+                must_not: {
+                  match: {
+                    filename: 'Completion.csv'
+                  }
+                }
+              }
+            }
+          ]
         }
       },
       from: pageSize * (page - 1),
