@@ -13,6 +13,7 @@ import get from 'lodash/get'
 import { ITextLine } from './search/ITextLine'
 import { SearchError } from './components/SearchError'
 import { SearchBar } from './components/SearchBar'
+import { AdvancedUsage } from './components/AdvancedUsage'
 
 const MarginedDiv = styled.div({
   marginBottom: 12

@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Navbar,
   Classes,
   Alignment,
   Popover,
   Button,
-  Menu
+  Menu,
+  Overlay,
+  Alert
 } from '@blueprintjs/core'
 import { copy } from '../utils/copy'
 import { FixedWidthContainer } from './FixedWidthContainer'
 import useLocalStorage from 'react-use-localstorage'
+import { AdvancedUsage } from './AdvancedUsage'
 
 const NEVERSHOW_KEY = 'neverShow'
 
@@ -30,11 +33,25 @@ export function TopNav() {
 
 function MoreToolsButton() {
   const [neverShow] = useLocalStorage(NEVERSHOW_KEY, '')
+  const [showAdvanced, setShowAdvanced] = useState(false)
 
   return (
-    <Popover content={<MoreToolsMenu />} defaultIsOpen={!neverShow}>
-      <Button icon="more" intent="primary" />
-    </Popover>
+    <>
+      <Popover
+        content={<MoreToolsMenu setShowAdvanced={setShowAdvanced} />}
+        defaultIsOpen={!neverShow}
+      >
+        <Button icon="more" intent="primary" />
+      </Popover>
+      <Alert
+        isOpen={showAdvanced}
+        onClose={() => setShowAdvanced(false)}
+        confirmButtonText="我知道了"
+        intent="primary"
+      >
+        <AdvancedUsage />
+      </Alert>
+    </>
   )
 }
 
@@ -44,17 +61,22 @@ const WEIBO_USER_URL = 'https://weibo.com/u/6364253854'
 
 const MAP_URL = 'https://map.wakingsands.com'
 
-function MoreToolsMenu() {
+function MoreToolsMenu(props: { setShowAdvanced: (state: boolean) => void }) {
   const [neverShow, setNeverShow] = useLocalStorage(NEVERSHOW_KEY, '')
 
   return (
     <Menu>
+      <Menu.Item disabled icon="code" text="数据版本：4.40" />
+      <Menu.Item
+        icon="filter-list"
+        text="高级搜索"
+        onClick={() => props.setShowAdvanced(true)}
+      />
       <Menu.Item
         icon={neverShow ? 'tick' : 'square'}
         onClick={() => setNeverShow(neverShow ? '' : 'yes')}
         text="自动隐藏本菜单"
       />
-      <Menu.Item disabled icon="code" text="数据版本：4.40" />
       <Menu.Divider title="其它工具" />
       <Menu.Item text="交互地图" icon="map" onClick={() => open(MAP_URL)} />
       <Menu.Divider title="关于" />
@@ -81,6 +103,6 @@ function open(url: string) {
   const a = document.createElement('a')
   a.href = url
   a.target = '_blank'
-  a.rel = 'noopener'
+  a.rel = 'noopener noreferrer'
   a.click()
 }
