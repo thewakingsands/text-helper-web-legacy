@@ -64,9 +64,12 @@ export default function App() {
   }
 
   const handleContextClick = (item: ITextLine) => {
-    setKeywordInput('')
+    if (keywordInput) {
+      setPreviousQuery(search.query)
+      setKeywordInput('')
+    }
+
     setHighlightItem(item)
-    setPreviousQuery(search.query)
 
     search.setSearch({
       file: {
