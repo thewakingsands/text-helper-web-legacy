@@ -66,7 +66,7 @@ function MoreToolsMenu(props: { setShowAdvanced: (state: boolean) => void }) {
 
   return (
     <Menu>
-      <Menu.Item disabled icon="code" text="数据版本：4.45" />
+      <Menu.Item disabled icon="code" text="数据版本：4.5" />
       <Menu.Item
         icon="filter-list"
         text="高级搜索"
