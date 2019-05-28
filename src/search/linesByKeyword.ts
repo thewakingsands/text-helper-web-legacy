@@ -131,7 +131,7 @@ function searchKeywordQuery(keyword: string) {
 
 function defaultQuery() {
   return {
-    must_not: [ignoredFileuery()]
+    // must_not: [ignoredFileuery()]
   }
 }
 
