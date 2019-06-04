@@ -128,6 +128,6 @@ function highlight(
   }
   return html
     .replace(/\t/g, '\n')
-    .replace(/<(?!\/?em)([^>]+)>/, '&lt;$1&gt;')
-    .replace(/<(?!\/?em)/, '&lt;')
+    .replace(/<(?!\/?em)([^>]+)>/g, '&lt;$1&gt;')
+    .replace(/<(?!\/?em)/g, '&lt;')
 }
