@@ -46,7 +46,7 @@ const StyledHtmlTable = styled(HTMLTable)({
   }
 })
 
-const ScollableContainer = styled.div({
+const ScrollableContainer = styled.div({
   width: '100%',
   overflowX: 'auto'
 })
@@ -84,7 +84,7 @@ export function ResultTable(props: IResultTableProps) {
     })
 
   return (
-    <ScollableContainer>
+    <ScrollableContainer>
       <StyledHtmlTable condensed striped>
         <thead>
           <tr>
@@ -114,7 +114,7 @@ export function ResultTable(props: IResultTableProps) {
           ))}
         </HighlightedTbody>
       </StyledHtmlTable>
-    </ScollableContainer>
+    </ScrollableContainer>
   )
 }
 
