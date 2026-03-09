@@ -38,7 +38,7 @@ const StyledHtmlTable = styled(HTMLTable)({
   minWidth: 700,
   width: '100%',
   [`&.${Classes.HTML_TABLE}.${Classes.HTML_TABLE_STRIPED} tbody tr:hover td`]: {
-    backgroundColor: Colors.LIGHT_GRAY4
+    backgroundColor: Colors.LIGHT_GRAY2
   },
   borderCollapse: 'collapse',
   'th, tr, td': {
@@ -85,7 +85,7 @@ export function ResultTable(props: IResultTableProps) {
 
   return (
     <ScrollableContainer>
-      <StyledHtmlTable condensed striped>
+      <StyledHtmlTable compact striped>
         <thead>
           <tr>
             <th>位置</th>

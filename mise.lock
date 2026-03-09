@@ -1,0 +1,21 @@
+[[tools.node]]
+version = "25.8.0"
+backend = "core:node"
+"platforms.linux-arm64" = { checksum = "sha256:54c128f5286a4392a1fd1c765729b074a6873abff8a4f9bb3d63d571c2855e41", url = "https://nodejs.org/dist/v25.8.0/node-v25.8.0-linux-arm64.tar.gz"}
+"platforms.linux-x64" = { checksum = "sha256:2ae6f70d74a459c0a96456e486dc60f3e7e65d7752ad302771834e58b27500af", url = "https://nodejs.org/dist/v25.8.0/node-v25.8.0-linux-x64.tar.gz"}
+"platforms.macos-arm64" = { checksum = "sha256:75ff6fd07e0a85fb4d2529f6189c996014b1d3d83180c31e65feb2b3eaeec5d9", url = "https://nodejs.org/dist/v25.8.0/node-v25.8.0-darwin-arm64.tar.gz"}
+"platforms.macos-x64" = { checksum = "sha256:03fb559600c3ede0228d8b588ac6ad8b7b2cd0bac9422b56e7e2ef7f5c11b67c", url = "https://nodejs.org/dist/v25.8.0/node-v25.8.0-darwin-x64.tar.gz"}
+"platforms.windows-x64" = { checksum = "sha256:5744746371a417179a701044739b5fa2b3164e943aa57f86059fb312f8032e86", url = "https://nodejs.org/dist/v25.8.0/node-v25.8.0-win-x64.zip"}
+
+[[tools.pnpm]]
+version = "10.31.0"
+backend = "aqua:pnpm/pnpm"
+"platforms.linux-arm64" = { checksum = "sha256:5e8f5b3fc8fc00963686a8502ddf5882681b29dcfe392671336b660f78127152", url = "https://github.com/pnpm/pnpm/releases/download/v10.31.0/pnpm-linux-arm64"}
+"platforms.linux-x64" = { checksum = "sha256:21f99c8eb302967af820ce575a48717d017203269916f932e34f5ff86334008d", url = "https://github.com/pnpm/pnpm/releases/download/v10.31.0/pnpm-linux-x64"}
+"platforms.macos-arm64" = { checksum = "sha256:6f2a7f51faa0bbee013fcad9be2f0d503e3a77d872c8f9551866285c64b98cd2", url = "https://github.com/pnpm/pnpm/releases/download/v10.31.0/pnpm-macos-arm64"}
+"platforms.macos-x64" = { checksum = "sha256:1e8e40e0c127248300975ffc50de9d7d49fade78b55240cab1db02a9324f65d6", url = "https://github.com/pnpm/pnpm/releases/download/v10.31.0/pnpm-macos-x64"}
+"platforms.windows-x64" = { checksum = "sha256:26cfa9cb3963e4841fbd0da3b5114b1c72631b41b5617ed07f451d5974cfa494", url = "https://github.com/pnpm/pnpm/releases/download/v10.31.0/pnpm-win-x64.exe"}
+
+[[tools.yarn]]
+version = "4.9.4"
+backend = "asdf:yarn"

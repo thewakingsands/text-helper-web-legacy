@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 echo "Installing packages ..."
-docker run -it --rm -v `pwd`:/app -v yarncache:/yarncache -w /app node:lts yarn --cache-folder /yarncache
+docker run -it --rm -v `pwd`:/app -v pnpmstore:/pnpm/store -w /app node:lts sh -lc "corepack enable && pnpm install --frozen-lockfile --store-dir /pnpm/store"
 echo "Buliding ..."
-docker run -it --rm -v `pwd`:/app -w /app node:lts yarn build
-echo "Updating directory ..."
-docker run -it --rm -v `pwd`:/app --entrypoint=/usr/bin/rsync eeacms/rsync -a --delete /app/build/ /app/dist/
+docker run -it --rm -v `pwd`:/app -v pnpmstore:/pnpm/store -w /app node:lts sh -lc "corepack enable && pnpm --store-dir /pnpm/store build"

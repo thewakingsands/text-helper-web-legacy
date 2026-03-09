@@ -47,13 +47,12 @@ export default function App() {
   // })
   const search = useSearch(null)
 
-  const [debouncedSetSearch] = useDebouncedCallback(
+  const debouncedSetSearch = useDebouncedCallback(
     (q: ISearchQuery) => {
       setHighlightItem(null)
       search.setSearch(q)
     },
-    400,
-    []
+    400
   )
 
   const PAGE_SIZE = 20

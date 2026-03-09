@@ -3,15 +3,21 @@
 ## Build
 
 ```bash
-docker run -it --rm -v `pwd`:/app -w /app node:lts yarn
-docker run -it --rm -v `pwd`:/app -w /app node:lts yarn build
+corepack enable
+pnpm install
+pnpm build
 ```
 
-## Update
+## Dev
 
 ```bash
-mkdir -p dist
-docker run -it --rm -v `pwd`:/app --entrypoint=/usr/bin/rsync eeacms/rsync -a --delete /app/build/ /app/dist/
+pnpm run dev
+```
+
+## Type Check
+
+```bash
+pnpm typecheck
 ```
 
 ## Run
