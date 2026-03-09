@@ -132,7 +132,7 @@ export default function App() {
       >
         <div className={Classes.DIALOG_BODY}>
           新版文本检索支持德/韩/法/繁中检索与显示。本站 (V1)
-          后续数据库将保持更新，但内容不再更新。请在菜单-&gt;新版文本检索处体验。
+          后续数据库将保持更新，但功能不再更新。请在菜单-&gt;新版文本检索处体验。
         </div>
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
