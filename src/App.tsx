@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TopNav } from './components/TopNav'
 import { MainContainer } from './components/MainContainer'
 import { SearchField } from './components/SearchField'
@@ -7,13 +7,14 @@ import { Footer } from './components/Footer'
 import { useSearch, ISearchQuery } from './search/useSearch'
 import { SearchResult } from './components/SearchResult'
 import { useDebouncedCallback } from 'use-debounce'
-import { Spinner } from '@blueprintjs/core'
+import { Button, Classes, Dialog, Spinner } from '@blueprintjs/core'
 import { Pager } from './components/Pager'
 import get from 'lodash/get'
 import { ITextLine } from './search/ITextLine'
 import { SearchError } from './components/SearchError'
 import { SearchBar } from './components/SearchBar'
 import { AdvancedUsage } from './components/AdvancedUsage'
+import useLocalStorage from 'react-use-localstorage'
 
 const MarginedDiv = styled.div({
   marginBottom: 12
@@ -33,10 +34,17 @@ const StickyContainer = styled.div({
   zIndex: 20
 })
 
+const ANNOUNCEMENT_DISMISSED_KEY = 'announcementV2Dismissed'
+
 export default function App() {
   const [keywordInput, setKeywordInput] = useState('')
   const [highlightItem, setHighlightItem] = useState<ITextLine>(null)
   const [previousQuery, setPreviousQuery] = useState<ISearchQuery>(null)
+  const [announcementDismissed, setAnnouncementDismissed] = useLocalStorage(
+    ANNOUNCEMENT_DISMISSED_KEY,
+    ''
+  )
+  const [isAnnouncementOpen, setIsAnnouncementOpen] = useState(false)
 
   // const search = useSearch({
   //   keyword: {
@@ -56,6 +64,17 @@ export default function App() {
   )
 
   const PAGE_SIZE = 20
+
+  useEffect(() => {
+    if (!announcementDismissed) {
+      setIsAnnouncementOpen(true)
+    }
+  }, [announcementDismissed])
+
+  const handleAnnouncementDismiss = () => {
+    setAnnouncementDismissed('yes')
+    setIsAnnouncementOpen(false)
+  }
 
   const handleKeywordInputUpdate = (keyword: string) => {
     setKeywordInput(keyword)
@@ -106,6 +125,23 @@ export default function App() {
   return (
     <>
       <TopNav />
+      <Dialog
+        isOpen={isAnnouncementOpen}
+        onClose={() => setIsAnnouncementOpen(false)}
+        title="文本检索 V2 已上线"
+      >
+        <div className={Classes.DIALOG_BODY}>
+          新版文本检索支持德/韩/法/繁中检索与显示。本站 (V1)
+          后续数据库将保持更新，但内容不再更新。请在菜单-&gt;新版文本检索处体验。
+        </div>
+        <div className={Classes.DIALOG_FOOTER}>
+          <div className={Classes.DIALOG_FOOTER_ACTIONS}>
+            <Button intent="primary" onClick={handleAnnouncementDismiss}>
+              不再显示
+            </Button>
+          </div>
+        </div>
+      </Dialog>
       <FillBodySection>
         <MainContainer>
           <StickyContainer>
