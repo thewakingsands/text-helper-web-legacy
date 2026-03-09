@@ -3,7 +3,7 @@
 ## Build
 
 ```bash
-corepack enable
+npm install -g pnpm@10.31.0
 pnpm install
 pnpm build
 ```
