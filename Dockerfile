@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:25.8.0
 ADD . /app
 WORKDIR /app
 RUN corepack enable && \

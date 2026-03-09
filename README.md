@@ -19,9 +19,3 @@ pnpm run dev
 ```bash
 pnpm typecheck
 ```
-
-## Run
-
-```bash
-systemctl enable --now `pwd`/text-helper-web.service
-```
