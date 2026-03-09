@@ -2,7 +2,7 @@ FROM node:25.8.0 AS build
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
-RUN npm install -g "$(node -p \"require('./package.json').packageManager\")" && \
+RUN npm install -g "$(node -p 'require("./package.json").packageManager')" && \
   pnpm install --frozen-lockfile
 
 COPY . .
