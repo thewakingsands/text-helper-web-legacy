@@ -1,4 +1,3 @@
-import React from 'react'
 import { ISearchResult, ITextLine } from '../search/ITextLine'
 import { HTMLTable, Colors, Classes, Button } from '@blueprintjs/core'
 import styled from '@emotion/styled'
@@ -18,16 +17,12 @@ const HighlightedTbody = styled.tbody({
   'td:nth-of-type(1)': {
     width: '10%',
     fontSize: 12,
-    fontFamily: 'monospace'
+    fontFamily: 'monospace',
+    minWidth: 100,
   },
-  'td:nth-of-type(2)': {
-    width: '30%'
-  },
-  'td:nth-of-type(3)': {
-    width: '30%'
-  },
-  'td:nth-of-type(4)': {
-    width: '30%'
+  'td:nth-of-type(2), td:nth-of-type(3), td:nth-of-type(4), td:nth-of-type(5)': {
+    width: '22.5%',
+    minWidth: 200,
   },
   '.highlight-row td': {
     backgroundColor: `#fef4a8 !important`
@@ -77,7 +72,8 @@ export function ResultTable(props: IResultTableProps) {
         html: [
           ['cn', highlight(item, 'cn')],
           ['en', highlight(item, 'en')],
-          ['ja', highlight(item, 'ja')]
+          ['ja', highlight(item, 'ja')],
+          ['tc', highlight(item, 'tc')]
         ],
         _source: item._source
       }
@@ -92,6 +88,7 @@ export function ResultTable(props: IResultTableProps) {
             <th>中文</th>
             <th>英语</th>
             <th>日语</th>
+            <th>繁中</th>
           </tr>
         </thead>
         <HighlightedTbody className={Classes.TEXT_LARGE}>
@@ -120,7 +117,7 @@ export function ResultTable(props: IResultTableProps) {
 
 function highlight(
   h: { highlight: any; _source: any },
-  lang: 'cn' | 'en' | 'ja'
+  lang: 'cn' | 'en' | 'ja' | 'tc'
 ) {
   let html = h.highlight && h.highlight[lang] && h.highlight[lang][0]
   if (!html) {
